@@ -5,8 +5,12 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var User = new Schema({
   username: String,
   password: String,
-  zip: Number,
-
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    zip: Number
+  }
 });
 
 User.plugin(passportLocalMongoose);
