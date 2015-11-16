@@ -3,8 +3,11 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var Tool = new Schema({
-  username: String,
-  password: String
+  userID: String,
+  toolId: Number,
+  category: String,
+  description: String,
+  isAvailable: Boolean
 });
 
 Tool.plugin(passportLocalMongoose);
