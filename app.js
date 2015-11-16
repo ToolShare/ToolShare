@@ -14,9 +14,8 @@ var users = require('./routes/toolRequests');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var config = require('./config');
 
-mongoose.connect(config.connect);
+mongoose.connect(process.env.MONGOLAB_URI);
 
 // require models
 var User = require('./models/User');
