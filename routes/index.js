@@ -13,11 +13,21 @@ router.get('/register', function(req, res, next) {
 });
 
 router.get('/login', function(req, res) {
-  res.render('login', { user: req.user });
+  res.render('login', { user: req.user, loginErr: req.session.loginErr });
 });
 
-router.post('/login', passport.authenticate('local'), function(req, res) {
-  res.redirect('/');
+router.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) {
+      req.session.loginErr = "Invalid Username or Password";
+      return res.redirect('/login');
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/dashboard');
+    });
+  })(req, res, next);
 });
 
 router.get('/logout', function(req, res) {

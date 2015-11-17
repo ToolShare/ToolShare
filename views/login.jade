@@ -5,14 +5,16 @@ block content
     h1 Login Page
     p.lead Please enter login information.
     br
+
     form(role='form', action="/login",method="post", style='max-width: 300px;')
       .form-group
-          input.form-control(type='text', name="username", placeholder='enter email address')
+        if (loginErr)
+        h4.alert.alert-danger #{loginErr}
+        input.form-control(type='text', name="username", placeholder='enter email address')
       .form-group
         input.form-control(type='password', name="password", placeholder='enter a password')
       button.btn.btn-default(type='submit') Submit
       span &nbsp;
       a(href='/')
         button.btn.btn-primary(type="button") Cancel
-
-
+    
