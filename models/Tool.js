@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var Tool = new Schema({
-  userId: String, //must be unique for routing
+  userId: String,
   category: String,
   name: String,
   description: String,
