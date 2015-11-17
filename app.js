@@ -1,4 +1,6 @@
 var express = require('express');
+var Resource = require('express-resource');
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -6,9 +8,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
-var users = require('./routes/tools');
-var users = require('./routes/toolRequests');
 
 // require mongooose pasport
 var mongoose = require('mongoose');
@@ -24,6 +23,11 @@ var ToolRequest = require('./models/ToolRequest');
 
 var app = express();
 
+// express-resource for resouseful routing to express
+app.resource('tools', require('./routes/tools'));
+app.resource('toolRequests', require('./routes/toolRequests'));
+app.resource('users', require('./routes/users'));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -37,7 +41,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 
 app.use(require('express-session')({
   secret: 'your face',
@@ -52,8 +55,6 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

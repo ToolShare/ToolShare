@@ -1,9 +1,29 @@
-var express = require('express');
-var router = express.Router();
+var users = module.exports;
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+users.index = function(req, res){
+  res.send('users index');
+};
 
-module.exports = router;
+users.new = function(req, res){
+  res.send('new users');
+};
+
+users.create = function(req, res){
+  res.send('create users');
+};
+
+users.show = function(req, res){
+  res.send('show users ' + req.params.users);
+};
+
+users.edit = function(req, res){
+  res.send('edit users ' + req.params.users);
+};
+
+users.update = function(req, res){
+  res.send('update users ' + req.params.users);
+};
+
+users.destroy = function(req, res){
+  res.send('destroy users ' + req.params.users);
+};
