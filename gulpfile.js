@@ -5,29 +5,29 @@ var stylish = require("jshint-stylish");
 var jscs = require("gulp-jscs");
 
 var paths = {
-  src:["./app.js", "./routs/*.js"],
-  tests: ["./tests/*.js"]
+  src:['./app.js', './routes/*.js', 'models/*.js'],
+  tests: ['./tests/*.js']
 }
 
-gulp.task("lint", function(){
+gulp.task('lint', function(){
   return gulp.src(paths.src)
     .pipe(jshint())
     .pipe(jshint.reporter(stylish));
 });
 
-gulp.task("tests", function(){
+gulp.task('tests', function(){
   return gulp.src(paths.tests)
     .pipe(mocha());
 });
 
-gulp.task("jscs", function(){
+gulp.task('jscs', function(){
   return gulp.src(paths.src)
     .pipe(jscs())
     .pipe(jscs.reporter());
 });
 
-gulp.task("watch", function(){
-  gulp.watch(paths.src, ["lint","jscs"]);
+gulp.task('watch', function(){
+  gulp.watch(paths.src, ['lint','jscs']);
 });
 
-gulp.task("default",["lint", "tests", "jscs"]);
+gulp.task('default',['lint', 'tests', 'jscs']);
