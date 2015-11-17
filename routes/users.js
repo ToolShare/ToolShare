@@ -2,14 +2,20 @@ var users = module.exports;
 var User = require('../models/User');
 
 users.index = function(req, res){
-  res.send('users index');
+	User.find(function(err, users) {
+		if (err) {
+			return next(err);
+		} else {
+			res.json(users);
+		}
+	});
 };
 
 users.new = function(req, res){
   res.send('new users');
 };
 
-users.create = function(req, res) {
+users.create = function(req, res, next) {
 	console.log("Got new user");
 	console.log(req.body);
 	var user = new User();
@@ -20,7 +26,7 @@ users.create = function(req, res) {
 
 	user.save(function(err) {
 		if (err) {
-	 		res.send(err);
+	 		return next(err);
 		} else {
   		//res.render('../views/index.jade', user);
   		res.json(user);
@@ -30,7 +36,7 @@ users.create = function(req, res) {
 
 };
 
-users.show = function(req, res){
+users.show = function(req, res, next){
 	User.findById(req.params.user, function(err, user) {
 		if (err) {
 			return next(err);
@@ -44,10 +50,35 @@ users.edit = function(req, res){
   res.send('edit users ' + req.params.users);
 };
 
-users.update = function(req, res){
-  res.send('update users ' + req.params.users);
+users.update = function(req, res, next){
+	User.findById(req.params.user, function(err, user) {
+		if (err) {
+			return next(err);
+		} else {
+			console.log(req.body);
+			for (prop in req.body) {
+				user[prop] = req.body[prop];
+			}
+			user.save(function(err) {
+				if (err) {
+	 				return next(err);
+				} else {
+  				//res.render('../views/index.jade', user);
+  				res.json(user);
+				}
+			});
+		}
+	});
+  //res.send('update users ' + req.params.users);
 };
 
 users.destroy = function(req, res){
-  res.send('destroy users ' + req.params.users);
+	User.remove({_id: req.params.user}, function(err, user) {
+		if (err) {
+			return next(err);
+		} else {
+			var message = 'ID: ' + req.params.user + ' deleted from DB';
+			res.json({message: message});
+		}
+	});
 };

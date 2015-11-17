@@ -29,6 +29,16 @@ describe('Single Resource REST API', function() {
    	//app.listen(port, done);
 	//});
 
+	it('GET /users request should return all users from DB', function(done) {
+		chaiRequest()
+			.get('/users')
+			.end(function(err, res) {
+				expect(res).to.have.status(200);
+				expect(res.body.length).to.be.above(0);
+				done();
+			});
+	});
+
 	it('POST /users request should add a user to DB', function(done) {
 		chaiRequest()
 			.post('/users')
@@ -42,7 +52,7 @@ describe('Single Resource REST API', function() {
 				done();
 			});
 	});
-
+	
 	it('GET /users/:id request for user1 ID should user1 from DB', function(done) {
 		chaiRequest()
 			.get('/users/' + user1._id)
@@ -51,17 +61,42 @@ describe('Single Resource REST API', function() {
 				expect(res).to.have.status(200);
 				expect(res.body._id).to.equal(user1._id);
 				expect(res.body.username).to.equal(user1.username);
-				console.log(user1);
+				//console.log(user1);
 				done();
 			});
 	});
 
-	it('GET /users/:id request for INVALID ID should return error', function(done) {
+	// it('GET /users/:id request for INVALID ID should return error', function(done) {
+	// 	chaiRequest()
+	// 		.get('/users/999999')
+	// 		.send(user1)
+	// 		.end(function(err, res) {
+	// 			console.log(err);
+	// 			expect(err).to.exist;
+	// 			done();
+	// 		});
+	// });
+
+	it('PUT /users/:id request for user1 ID should update user1 password in DB', function(done) {
 		chaiRequest()
-			.get('/users/999999')
-			.send(user1)
+			.put('/users/' + user1._id)
+			.send({password: 'NewPassword'})
 			.end(function(err, res) {
-				expect(err).to.exist;
+				expect(res).to.have.status(200);
+				expect(res.body._id).to.equal(user1._id);
+				expect(res.body.password).to.equal('NewPassword');
+				done();
+			});
+	});
+
+	it('DELETE /users/:id should delete user1 from DB', function(done) {
+		chaiRequest()
+			.del('/users/' + user1._id)
+			.end(function(err, res) {
+				expect(err).to.be.null;
+				expect(res).to.have.status(200);
+				expect(res).to.be.json;
+				expect(res.body.message).to.equal('ID: ' + user1._id + ' deleted from DB');
 				done();
 			});
 	});
