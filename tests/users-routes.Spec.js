@@ -4,7 +4,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = require('chai').expect;
 var app = require('../app');
-var port = 3000;
+var port = 3001;
 
 var user1 = {
   username: 'Laura',
@@ -25,6 +25,9 @@ function chaiRequest() {
 }
 
 describe('Single Resource REST API', function() {
+  before(function(done) {
+    app.listen(port, done);
+  });
 
   it('POST /users request should add a user to DB', function(done) {
     chaiRequest()
