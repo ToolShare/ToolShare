@@ -4,7 +4,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = require('chai').expect;
 var app = require('../app');
-var port = 3001;
+var port = 3000;
 
 chai.use(chaiHttp);
 
@@ -20,15 +20,15 @@ describe('Single Resource REST API', function() {
 	it('POST /users request should add a user to DB', function(done) {
 		chaiRequest()
 			.post('/users')
-			.send({ 
-							username: 'Laura', 
+			.send({
+							username: 'Laura',
 							password: 'tiger',
 							address: {
 								street: '123 Main St',
 								city: 'Beaverton',
 								state: 'OR',
 								zip: 97007
-							}	
+							}
 						})
 			.end(function(err, res) {
 				console.log(res.body);

@@ -10,6 +10,4 @@ var Tool = new Schema({
   isAvailable: Boolean
 });
 
-Tool.plugin(passportLocalMongoose);
-
 module.exports = mongoose.model('Tool', Tool);

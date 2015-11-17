@@ -7,7 +7,7 @@ var ToolRequest = require('../models/ToolRequest');
 router.get('/dashboard', function(req, res, next) {
   var user = req.user;
 
-  var userTools = new Promise(function (res, rej) {
+  var userTools = new Promise(function(res, rej) {
     Tool.find({userId: user.id}, function(err, tools) {
       res(tools);
       rej(err);
@@ -28,9 +28,11 @@ router.get('/dashboard', function(req, res, next) {
     });
   });
 
-  Promise.all([userTools, borrowReqs, lendReqs]).then(function(tools, borrowReqs, lendReqs) {
-    res.render('dashboard', {user, tools, borrowReqs, lendReqs})
-  }).catch(function(err) {
-    next(err);
-  })
+  Promise.all([userTools, borrowReqs, lendReqs])
+    .then(function(tools, borrowReqs, lendReqs) {
+      res.render('dashboard', {user: user, tools: tools, borrowReqs: borrowReqs, lendReqs: lendReqs});
+    })
+    .catch(function(err) {
+      next(err);
+    });
 });
