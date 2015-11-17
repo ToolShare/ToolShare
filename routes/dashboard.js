@@ -4,7 +4,10 @@ var User = require('../models/User');
 var Tool = require('../models/Tool');
 var ToolRequest = require('../models/ToolRequest');
 
-router.get('/dashboard', function(req, res, next) {
+router.get('/', function(req, res, next) {
+  if (!req.isAuthenticated()) {
+    req.session.loginErr = 'You are not logged in';
+    res.redirect('/login')}
   var user = req.user;
 
   var userTools = new Promise(function(res, rej) {
@@ -33,6 +36,9 @@ router.get('/dashboard', function(req, res, next) {
       res.render('dashboard', {user: user, tools: tools, borrowReqs: borrowReqs, lendReqs: lendReqs});
     })
     .catch(function(err) {
+      console.log(err)
       next(err);
     });
 });
+
+module.exports = router;

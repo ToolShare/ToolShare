@@ -5,14 +5,36 @@ var User = require('../models/User');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  if (req.isAuthenticated()) res.redirect('/dashboard');
   res.render('index', { user: req.user});
 });
 
 router.get('/register', function(req, res, next) {
+  if (req.isAuthenticated()) res.redirect('/dashboard');
   res.render('register', {regErr: req.regErr});
 });
 
+router.post('/register', function(req, res) {
+    User.register(new User({
+      username : req.body.username,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      street: req.body.street,
+      city: req.body.city,
+      state: req.body.state,
+      zip: req.body.zip,
+    }), req.body.password, function(err, account) {
+        if (err) {
+          return res.render("register", {info: "Sorry. That username already exists. Try again."});
+        }
+        passport.authenticate('local')(req, res, function () {
+            res.redirect('/dashboard');
+        });
+    });
+});
+
 router.get('/login', function(req, res) {
+  if (req.isAuthenticated()) res.redirect('/dashboard');
   res.render('login', { user: req.user, loginErr: req.session.loginErr });
 });
 

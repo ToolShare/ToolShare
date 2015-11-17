@@ -9,7 +9,7 @@ block content
     form(role='form', action="/login",method="post", style='max-width: 300px;')
       .form-group
         if (loginErr)
-        h4.alert.alert-danger #{loginErr}
+          h4.alert.alert-danger #{loginErr}
         input.form-control(type='text', name="username", placeholder='enter email address')
       .form-group
         input.form-control(type='password', name="password", placeholder='enter a password')
