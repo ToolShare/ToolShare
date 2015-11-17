@@ -7,7 +7,7 @@ var Tool = new Schema({
   category: String,
   name: String,
   description: String,
-  isAvailable: Boolean
+  isAvailable: Boolean,
 });
 
 module.exports = mongoose.model('Tool', Tool);
