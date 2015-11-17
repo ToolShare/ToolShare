@@ -7,7 +7,7 @@ var Tool = new Schema({
   category: String,
   name: String,
   description: String,
-  isAvailable: Boolean
+  isAvailable: Boolean,
 });
 
 Tool.plugin(passportLocalMongoose);

@@ -11,8 +11,8 @@ var User = new Schema({
     street: String,
     city: String,
     state: String,
-    zip: Number
-  }
+    zip: Number,
+  },
 });
 
 User.plugin(passportLocalMongoose);
