@@ -16,7 +16,6 @@ users.new = function(req, res) {
 };
 
 users.create = function(req, res, next) {
-  console.log(req.body);
   var user = new User();
 
   user.username = req.body.username;
@@ -53,7 +52,6 @@ users.update = function(req, res, next) {
     if (err) {
       return next(err);
     } else {
-      console.log(req.body);
       for (var prop in req.body) {
         user[prop] = req.body[prop];
       }
