@@ -16,7 +16,7 @@ var user1 = {
     zip: 97007,
   },
   _id: '',
-						};
+};
 
 chai.use(chaiHttp);
 
@@ -26,7 +26,7 @@ function chaiRequest() {
 
 describe('Single Resource REST API', function() {
   before(function(done) {
-    app.listen(port, done);
+     app.listen(port, done);
   });
 
   it('POST /users request should add a user to DB', function(done) {
@@ -34,13 +34,12 @@ describe('Single Resource REST API', function() {
     .post('/users')
     .send(user1)
 			.end(function(err, res) {
-  expect(res).to.have.status(200);
-
-  //expect(res.text).to.have.string('Welcome to');
-  expect(res.body).to.have.property('_id');
-  user1._id = res.body._id;
-  expect(res.body.username).to.equal(user1.username);
-  done();
+        expect(res).to.have.status(200);
+        //expect(res.text).to.have.string('Welcome to');
+        expect(res.body).to.have.property('_id');
+        user1._id = res.body._id;
+        expect(res.body.username).to.equal(user1.username);
+        done();
 			});
   });
 
@@ -48,10 +47,10 @@ describe('Single Resource REST API', function() {
     chaiRequest()
     .get('/users/' + user1._id)
 			.end(function(err, res) {
-  expect(res).to.have.status(200);
-  expect(res.body._id).to.equal(user1._id);
-  expect(res.body.username).to.equal(user1.username);
-  done();
+        expect(res).to.have.status(200);
+        expect(res.body._id).to.equal(user1._id);
+        expect(res.body.username).to.equal(user1.username);
+        done();
 			});
   });
 
@@ -59,9 +58,9 @@ describe('Single Resource REST API', function() {
     chaiRequest()
     .get('/users')
 			.end(function(err, res) {
-  expect(res).to.have.status(200);
-  expect(res.body.length).to.be.above(0);
-  done();
+        expect(res).to.have.status(200);
+        expect(res.body.length).to.be.above(0);
+        done();
 			});
   });
 
@@ -69,8 +68,8 @@ describe('Single Resource REST API', function() {
     chaiRequest()
     .get('/users/999999')
 			.end(function(err, res) {
-  expect(res.body).to.be.empty;
-  done();
+        expect(res.body).to.be.empty;
+        done();
 			});
   });
 
@@ -79,10 +78,10 @@ describe('Single Resource REST API', function() {
     .put('/users/' + user1._id)
     .send({password: 'NewPassword'})
 			.end(function(err, res) {
-  expect(res).to.have.status(200);
-  expect(res.body._id).to.equal(user1._id);
-  expect(res.body.password).to.equal('NewPassword');
-  done();
+        expect(res).to.have.status(200);
+        expect(res.body._id).to.equal(user1._id);
+        expect(res.body.password).to.equal('NewPassword');
+        done();
 			});
   });
 
@@ -90,11 +89,11 @@ describe('Single Resource REST API', function() {
     chaiRequest()
     .del('/users/' + user1._id)
 			.end(function(err, res) {
-  expect(err).to.be.null;
-  expect(res).to.have.status(200);
-  expect(res).to.be.json;
-  expect(res.body.message).to.equal('ID: ' + user1._id + ' deleted from DB');
-  done();
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body.message).to.equal('ID: ' + user1._id + ' deleted from DB');
+        done();
 			});
   });
 
