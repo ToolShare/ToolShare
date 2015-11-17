@@ -25,20 +25,7 @@ function chaiRequest() {
 }
 
 describe('Single Resource REST API', function() {
-	//before(function(done) {
-   	//app.listen(port, done);
-	//});
-
-	it('GET /users request should return all users from DB', function(done) {
-		chaiRequest()
-			.get('/users')
-			.end(function(err, res) {
-				expect(res).to.have.status(200);
-				expect(res.body.length).to.be.above(0);
-				done();
-			});
-	});
-
+	
 	it('POST /users request should add a user to DB', function(done) {
 		chaiRequest()
 			.post('/users')
@@ -61,21 +48,29 @@ describe('Single Resource REST API', function() {
 				expect(res).to.have.status(200);
 				expect(res.body._id).to.equal(user1._id);
 				expect(res.body.username).to.equal(user1.username);
-				//console.log(user1);
 				done();
 			});
 	});
 
-	// it('GET /users/:id request for INVALID ID should return error', function(done) {
-	// 	chaiRequest()
-	// 		.get('/users/999999')
-	// 		.send(user1)
-	// 		.end(function(err, res) {
-	// 			console.log(err);
-	// 			expect(err).to.exist;
-	// 			done();
-	// 		});
-	// });
+	it('GET /users request should return all users from DB', function(done) {
+		chaiRequest()
+			.get('/users')
+			.end(function(err, res) {
+				expect(res).to.have.status(200);
+				expect(res.body.length).to.be.above(0);
+				done();
+			});
+	});
+
+	it('GET /users/:id request for INVALID ID should return empty object', function(done) {
+		chaiRequest()
+			.get('/users/999999')
+			.send(user1)
+			.end(function(err, res) {
+				expect(res.body).to.be.empty;
+				done();
+			});
+	});
 
 	it('PUT /users/:id request for user1 ID should update user1 password in DB', function(done) {
 		chaiRequest()

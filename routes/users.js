@@ -16,7 +16,6 @@ users.new = function(req, res){
 };
 
 users.create = function(req, res, next) {
-	console.log("Got new user");
 	console.log(req.body);
 	var user = new User();
 
@@ -56,7 +55,7 @@ users.update = function(req, res, next){
 			return next(err);
 		} else {
 			console.log(req.body);
-			for (prop in req.body) {
+			for (var prop in req.body) {
 				user[prop] = req.body[prop];
 			}
 			user.save(function(err) {
@@ -69,7 +68,6 @@ users.update = function(req, res, next){
 			});
 		}
 	});
-  //res.send('update users ' + req.params.users);
 };
 
 users.destroy = function(req, res){
