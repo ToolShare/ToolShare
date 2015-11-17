@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .container
+    h1 Register an Account
+    p.lead Please sign up to start borrowing!
+    br
+    form(role='form', action="/register",method="post", style='max-width: 300px;')
+      include ./includes/userform.jade
+      a(href='/')
+      button.btn.btn-primary(type="button") Cancel
+      br
+    h4=info
+
+
+
