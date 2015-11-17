@@ -6,6 +6,18 @@ var expect = require('chai').expect;
 var app = require('../app');
 var port = 3001;
 
+var user1 = { 
+							username: 'Laura', 
+							password: 'tiger',
+							address: {
+								street: '123 Main St',
+								city: 'Beaverton',
+								state: 'OR',
+								zip: 97007
+							},
+							_id: '',
+						};
+
 chai.use(chaiHttp);
 
 function chaiRequest() {
@@ -20,27 +32,36 @@ describe('Single Resource REST API', function() {
 	it('POST /users request should add a user to DB', function(done) {
 		chaiRequest()
 			.post('/users')
-			.send({ 
-							username: 'Laura', 
-							password: 'tiger',
-							address: {
-								street: '123 Main St',
-								city: 'Beaverton',
-								state: 'OR',
-								zip: 97007
-							}	
-						})
+			.send(user1)
 			.end(function(err, res) {
-				console.log(res.body);
-				expect(err).to.be.null;
 				expect(res).to.have.status(200);
-				expect(res).to.be.json;
-				expect(res.body.username).to.equal('Laura');
-				expect(res.body.password).to.equal('tiger');
-				expect(res.body.address.street).to.equal('123 Main St');
-				expect(res.body.address.city).to.equal('Beaverton');
-				expect(res.body.address.state).to.equal('OR');
-				expect(res.body.address.zip).to.equal(97007);
+				//expect(res.text).to.have.string('Welcome to');
+				expect(res.body).to.have.property('_id');
+				user1._id = res.body._id; 
+				expect(res.body.username).to.equal(user1.username);
+				done();
+			});
+	});
+
+	it('GET /users/:id request for user1 ID should user1 from DB', function(done) {
+		chaiRequest()
+			.get('/users/' + user1._id)
+			.send(user1)
+			.end(function(err, res) {
+				expect(res).to.have.status(200);
+				expect(res.body._id).to.equal(user1._id);
+				expect(res.body.username).to.equal(user1.username);
+				console.log(user1);
+				done();
+			});
+	});
+
+	it('GET /users/:id request for INVALID ID should return error', function(done) {
+		chaiRequest()
+			.get('/users/999999')
+			.send(user1)
+			.end(function(err, res) {
+				expect(err).to.exist;
 				done();
 			});
 	});

@@ -18,21 +18,26 @@ users.create = function(req, res) {
 	user.password = req.body.password;
 	user.address = req.body.address;
 
-	// user.save(function(err) {
-	// 		if (err) {
-	// 	 		res.send(err);
-	// 		} else {
-	// 	 		var message = team.name + ' added to DB';
-	// 			res.json({message: message});
-	// 		}
-	// 	});
+	user.save(function(err) {
+		if (err) {
+	 		res.send(err);
+		} else {
+  		//res.render('../views/index.jade', user);
+  		res.json(user);
+		}
+	});
 		
-  res.json(user);
 
 };
 
 users.show = function(req, res){
-  res.send('show users ' + req.params.users);
+	User.findById(req.params.user, function(err, user) {
+		if (err) {
+			return next(err);
+		} else {
+			res.json(user);
+		}
+	});
 };
 
 users.edit = function(req, res){
