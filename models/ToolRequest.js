@@ -9,6 +9,4 @@ var ToolRequest = new Schema({
   Status: String
 });
 
-ToolRequest.plugin(passportLocalMongoose);
-
 module.exports = mongoose.model('ToolRequest', ToolRequest);
