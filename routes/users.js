@@ -11,11 +11,12 @@ users.new = function(req, res){
 
 users.create = function(req, res) {
 	console.log("Got new user");
+	console.log(req.body);
 	var user = new User();
 
-	user.username = req.params.username;
-	user.password = req.params.password;
-	user.address = req.params.address;
+	user.username = req.body.username;
+	user.password = req.body.password;
+	user.address = req.body.address;
 
 	// user.save(function(err) {
 	// 		if (err) {
@@ -24,9 +25,10 @@ users.create = function(req, res) {
 	// 	 		var message = team.name + ' added to DB';
 	// 			res.json({message: message});
 	// 		}
-	// 	});o
-	//console.log(req.body.username);
-  res.send(req.params.username);
+	// 	});
+		
+  res.json(user);
+
 };
 
 users.show = function(req, res){

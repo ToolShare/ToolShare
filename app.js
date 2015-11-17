@@ -23,11 +23,6 @@ var ToolRequest = require('./models/ToolRequest');
 
 var app = express();
 
-// express-resource for resouseful routing to express
-app.resource('tools', require('./routes/tools'));
-app.resource('toolRequests', require('./routes/toolRequests'));
-app.resource('users', require('./routes/users'));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -41,6 +36,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
+// express-resource for resouseful routing to express
+app.resource('tools', require('./routes/tools'));
+app.resource('toolRequests', require('./routes/toolRequests'));
+app.resource('users', require('./routes/users'));
 
 app.use(require('express-session')({
   secret: 'your face',

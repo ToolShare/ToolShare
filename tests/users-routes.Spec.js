@@ -3,7 +3,6 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = require('chai').expect;
-// var db = require('../app/models/db');
 var app = require('../app');
 var port = 3001;
 
@@ -18,19 +17,7 @@ describe('Single Resource REST API', function() {
    	//app.listen(port, done);
 	//});
 
-	// it('GET /users/new request should respond with no data before data is added to DB', function(done) {
-	// 	chaiRequest()
-	// 		.get('/api/collegeteams')
-	// 		.end(function(err, res) {
-	// 			expect(err).to.be.null;
-	// 			expect(res).to.have.status(200);
-	// 			expect(res).to.be.json;
-	// 			expect(res.body).to.be.empty;
-	// 			done();
-	// 		});
-	// });
-
-it('POST /users request should add a user to DB', function(done) {
+	it('POST /users request should add a user to DB', function(done) {
 		chaiRequest()
 			.post('/users')
 			.send({ 
@@ -43,13 +30,17 @@ it('POST /users request should add a user to DB', function(done) {
 								zip: 97007
 							}	
 						})
-			//.send({ name: 'LSU', mascot: 'tiger' })
 			.end(function(err, res) {
 				console.log(res.body);
 				expect(err).to.be.null;
 				expect(res).to.have.status(200);
 				expect(res).to.be.json;
 				expect(res.body.username).to.equal('Laura');
+				expect(res.body.password).to.equal('tiger');
+				expect(res.body.address.street).to.equal('123 Main St');
+				expect(res.body.address.city).to.equal('Beaverton');
+				expect(res.body.address.state).to.equal('OR');
+				expect(res.body.address.zip).to.equal(97007);
 				done();
 			});
 	});
