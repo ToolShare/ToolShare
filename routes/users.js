@@ -60,7 +60,6 @@ users.update = function(req, res, next) {
         } else {
           user[prop] = req.body[prop];
         }
-
       }
 
       user.save(function(err) {

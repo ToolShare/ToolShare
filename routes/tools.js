@@ -39,7 +39,8 @@ tools.show = function(req, res, next) {
     if (err) {
       return next(err);
     } else {
-      res.json(tool);
+      //res.json(tool);
+      res.render('tooldetail', {tool: tool});
     }
   });
 };
@@ -54,7 +55,9 @@ tools.update = function(req, res, next) {
       return next(err);
     } else {
       for (var prop in req.body) {
-        tool[prop] = req.body[prop];
+        if (prop in tool) {
+          tool[prop] = req.body[prop];
+        }
       }
 
       tool.save(function(err) {
