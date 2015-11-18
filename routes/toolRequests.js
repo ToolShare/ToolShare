@@ -20,7 +20,7 @@ toolRequests.create = function(req, res) {
   } else { //Assume mocha test
     toolRequest.requesterId = req.body.requesterId;
   }
-  
+
   toolRequest.toolId = req.body.toolId;
   toolRequest.status = 'open';
 
