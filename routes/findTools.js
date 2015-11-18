@@ -9,35 +9,34 @@ var Tool = require('../models/Tool');
 
 router.get('/', function(req, res, next) {
   var category = req.param.category ? req.param.category :'power';
-  category = 'Power Tools';
-  console.log(req.user);
+  category = 'power';
+  //console.log(req.user);
   Tool.find({
     category: category,
     isAvailable: true,
     //userId: !req.user.id
-  }, function(err, tools) {
-    // for (var i = 0; i < tools.length; i++) {
+  },
+  function(err, dbtools) {
+    console.log(dbtools);
+    var tools = {
+      category: category,
+      toolNames: []
+    };
+    for (i = 0; i < dbtools.length; i++) {
+      tools.toolNames[i] = {
+        name: dbtools[i].name,
+        count: "1"
 
-    // };
-    console.log(tools);
+      }
+    }
+    //res.send(tools)
+    res.render('findtools', {
+      category: tools.category,
+      tools: tools.toolNames
+
+    })
   });
-
-  console.log('we got this');
-
-
-});
-//   Tool.findById(req.params.tool, function(err, tool) {
-//     if (err) {
-//       return next(err);
-//     } else {
-//       res.json(tool);
-//     }
-//   });
-// };
-
-
-
-
+})
 
 
 module.exports = router;

@@ -9,7 +9,7 @@ var port = 3002;
 
 var tool1 = {
   userId: '564bb2793aa7615c07c699c7',
-  category: 'Power Tools', 
+  category: 'Power Tools',
   name: 'Joiner',
   description: 'Makita 6-Amp Plate Joiner',
   isAvailable: true,
