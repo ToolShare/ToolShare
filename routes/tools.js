@@ -54,7 +54,9 @@ tools.update = function(req, res, next) {
       return next(err);
     } else {
       for (var prop in req.body) {
-        tool[prop] = req.body[prop];
+        if (prop in tool) {
+          tool[prop] = req.body[prop];
+        }
       }
 
       tool.save(function(err) {
