@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  .container-fluid
+    .row
+      h2 Available #{tools.name}
+      div.list-group
+        each tool in tools.list
+          a(class="list-group-item" href="/toolRequest/#{tool.id}")= tool.userId
