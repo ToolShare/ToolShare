@@ -25,6 +25,7 @@ function chaiRequest() {
 }
 
 describe('Single Resource REST API', function() {
+
   before(function(done) {
      app.listen(port, done);
   });
@@ -88,6 +89,7 @@ describe('Single Resource REST API', function() {
   it('DELETE /users/:id should delete user1 from DB', function(done) {
     chaiRequest()
     .del('/users/' + user1._id)
+
 			.end(function(err, res) {
         expect(err).to.be.null;
         expect(res).to.have.status(200);

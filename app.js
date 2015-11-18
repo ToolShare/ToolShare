@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var dashboard = require('./routes/dashboard')
 
 // require mongooose pasport
 var mongoose = require('mongoose');
@@ -34,27 +35,27 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
-
-// express-resource for resouseful routing to express
-app.resource('tools', require('./routes/tools'));
-app.resource('toolRequests', require('./routes/toolRequests'));
-app.resource('users', require('./routes/users'));
-
 app.use(require('express-session')({
   secret: 'your face',
   resave: false,
   saveUninitialized: false,
 }));
 
+// set up passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-// set up passport
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// default api
+app.use('/', routes);
+app.use('/dashboard', dashboard);
+
+// express-resource for resouseful routing to express
+app.resource('tools', require('./routes/tools'));
+app.resource('toolRequests', require('./routes/toolRequests'));
+app.resource('users', require('./routes/users'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,7 +1,7 @@
 var toolRequests = module.exports;
 
 toolRequests.index = function(req, res) {
-  res.send('toolRequests index');
+  res.redirect('/');
 };
 
 toolRequests.new = function(req, res) {
