@@ -19,10 +19,12 @@ router.post('/register', function(req, res) {
       username : req.body.username,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
-      street: req.body.street,
-      city: req.body.city,
-      state: req.body.state,
-      zip: req.body.zip,
+      address: {
+        street: req.body.street,
+        city: req.body.city,
+        state: req.body.state,
+        zip: req.body.zip,
+      }
     }), req.body.password, function(err, account) {
         if (err) {
           return res.render("register", {info: "Sorry. That username already exists. Try again."});
