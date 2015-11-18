@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .container
+    h1 Tool Details
+    div
+      h3 #{tool.name}
+      p  Category: #{tool.category}
+      br
+      p  Description: #{tool.description}
+      br
+      p  Owner: #{tool.userId}
+      br
+
+      if tool.isAvailable
+        a(class='btn btn-default' href="/requesttool#{tool.id}") Request Tool
+    div

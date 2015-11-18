@@ -39,7 +39,8 @@ tools.show = function(req, res, next) {
     if (err) {
       return next(err);
     } else {
-      res.json(tool);
+      //res.json(tool);
+      res.render('tooldetail', {tool: tool});
     }
   });
 };
