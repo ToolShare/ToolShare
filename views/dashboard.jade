@@ -4,3 +4,61 @@ block content
   .container
     h1 User Dashboard
     h2 Welcome #{user.firstname}
+    div
+      h3 User Profile
+      p  First Name: #{user.firstname}
+      br
+      p  Last Name: #{user.lastname}
+      br
+      p  Street: #{user.address.street}
+      br
+      p  City: #{user.address.city}
+      br
+      p  State: #{user.address.state}
+      br
+      p  Zip Code: #{user.address.zip}
+
+
+      a(class='button' href='users/#{user.id}/edit') Edit User Profile
+    div
+      h3 My Tools
+        table
+          thead
+            tr
+              th Tool
+              th Detail
+              th Status
+              th Edit
+          tbody
+            tr
+              td
+              td
+              td
+   div
+      h3 Borrowed Tools
+        table
+          thead
+            tr
+              th Tool
+              th Lender
+              th Return
+          tbody
+            tr
+              td
+              td
+              td
+
+
+   div
+      h3 Requests
+        table
+          thead
+            tr
+              th Tool
+              th Borrower
+              th Accept/Decline
+          tbody
+            tr
+              td
+              td
+              td
