@@ -6,7 +6,7 @@ var ToolRequest = new Schema({
   lenderId: String,
   requesterId: String,
   toolId: String,
-  Status: String,
+  status: String,
 });
 
 module.exports = mongoose.model('ToolRequest', ToolRequest);

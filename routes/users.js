@@ -53,7 +53,9 @@ users.update = function(req, res, next) {
       return next(err);
     } else {
       for (var prop in req.body) {
-        user[prop] = req.body[prop];
+        if (prop in user) {
+          user[prop] = req.body[prop];
+        }
       }
 
       user.save(function(err) {
