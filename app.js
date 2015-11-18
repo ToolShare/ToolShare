@@ -7,8 +7,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//core functionalities
 var routes = require('./routes/index');
-var dashboard = require('./routes/dashboard')
+var dashboard = require('./routes/dashboard');
+var findtools = require('./routes/findtools');
 
 // require mongooose pasport
 var mongoose = require('mongoose');
