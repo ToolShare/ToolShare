@@ -36,7 +36,6 @@ router.get('/', function(req, res, next) {
       res.render('dashboard', {user: user, tools: tools, borrowReqs: borrowReqs, lendReqs: lendReqs});
     })
     .catch(function(err) {
-      console.log(err)
       next(err);
     });
 });
