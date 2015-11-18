@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 //core functionalities
 var routes = require('./routes/index');
 var dashboard = require('./routes/dashboard');
-var findtools = require('./routes/findtools');
+var findTools = require('./routes/findTools');
 
 // require mongooose pasport
 var mongoose = require('mongoose');
@@ -53,6 +53,7 @@ passport.deserializeUser(User.deserializeUser());
 // default api
 app.use('/', routes);
 app.use('/dashboard', dashboard);
+app.use('/findTools', findTools);
 
 // express-resource for resouseful routing to express
 app.resource('tools', require('./routes/tools'));

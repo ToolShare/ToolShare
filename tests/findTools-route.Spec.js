@@ -4,6 +4,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = require('chai').expect;
 var app = require('../app');
+var findTools = require('../routes/findTools');
 var port = 3002;
 
 var tool1 = {
@@ -26,10 +27,13 @@ describe('Single Resource REST API', function() {
     app.listen(port, done);
   });
 
-  it('GET /findtools/category request should return all tools', function(done) {
+  it('GET /findTools/category request should return all tools', function(done) {
     chaiRequest()
-      .get('/findtools/hand')
+      .get('/findTools')
+      .send({ user: { id: '0'} })
       .end(function(err, res) {
+        console.log(res.status);
+        //console.log(err);
         //expect(err).to.be.null;
         // expect(res).to.have.status(200);
         // expect(res).to.be.json;
