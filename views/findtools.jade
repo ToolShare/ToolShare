@@ -24,6 +24,6 @@ block content
               each tool in tools
                 a(href="/requesttool/#{tool.name}")
                 tr
-                  td #{tool.name}
+                  td 
+                    a(href="/requesttool/#{tool.name}") #{tool.name}
                   td #{tool.count}
-
