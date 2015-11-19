@@ -17,29 +17,31 @@ tools.new = function(req, res) {
 };
 
 tools.create = function(req, res, next) {
-  var tool = new Tool();
+  if (!req.isAuthenticated()) {
+    req.session.loginErr = "You need to login to view tools"
+    res.redirect('/login')
+  } else {
+    User.findById(req.user.id, function(err, user) {
+      if (err) return next(err);
+      var tool = new Tool({
+        userId: req.user.id,
+        category: req.body.category,
+        name: req.body.name,
+        description: req.body.description,
+        isAvailable: true,
+        _user: user
+      });
 
-  if (req.user) { // Session id is present
-    tool.userId = req.user.id;
-  } else { //Assume mocha test
-    tool.userId = req.body.userId;
+      //add
+      tool.save(function(err) {
+        if (err) {
+          return next(err);
+        } else {
+          res.redirect('/dashboard');
+        }
+      });
+    })
   }
-
-  tool.category = req.body.category;
-  tool.name = req.body.name;
-  tool.description = req.body.description;
-  tool.isAvailable = true;
-
-  //add
-  tool.save(function(err) {
-    if (err) {
-      return next(err);
-    } else {
-      //res.render('../views/index.jade', tool);
-      //res.json(tool);
-      res.redirect('/dashboard');
-    }
-  });
 };
 
 tools.show = function(req, res, next) {
