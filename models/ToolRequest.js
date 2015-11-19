@@ -8,6 +8,7 @@ var ToolRequest = new Schema({
   requesterId: String,
   _requester: {type: Number, ref: 'User'},
   toolId: String,
+  _tool: {type:Number, ref: 'Tool'},
   status: String,
 });
 

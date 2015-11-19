@@ -1,5 +1,7 @@
 var toolRequests = module.exports;
 var ToolRequest = require('../models/ToolRequest');
+var User = require('../models/User')
+var Tool = require('../models/Tool')
 
 toolRequests.index = function(req, res) {
   res.redirect('/');
@@ -9,29 +11,35 @@ toolRequests.new = function(req, res) {
   res.send('new toolRequests');
 };
 
-toolRequests.create = function(req, res) {
+toolRequests.create = function(req, res, next) {
 
-  var toolRequest = new ToolRequest();
-
-  toolRequest.lenderId = req.body.lenderId;
-
-  if (req.user) { // Session id is present
-    toolRequest.requesterId = req.user.id;
-  } else { //Assume mocha test
-    toolRequest.requesterId = req.body.requesterId;
-  }
-
-  toolRequest.toolId = req.body.toolId;
-  toolRequest.status = 'open';
-
-  toolRequest.save(function(err) {
-    if (err) {
-      return next(err);
-    } else {
-      //res.render('../views/index.jade', user);
-      res.json(toolRequest);
-    }
-  });
+  Promise.all([User.findById(req.body.lenderId), User.findById(req.body.borrowerId), Tool.findById(req.body.toolId)])
+  .then( function(results) {
+    console.log(results)
+    var lender = results[0]
+    var requester = results[1]
+    var tool = results[2]
+    var toolRequest = new ToolRequest({
+      lenderId: req.body.lenderId,
+      _lender: lender,
+      requesterId: req.body.borrowerId,
+      _requester: requester,
+      toolId: req.body.toolId,
+      _tool: tool,
+      status: 'open',
+    })
+    lender.loanReqs.push(toolRequest);
+    requester.borrowReqs.push(toolRequest);
+    Promise.all([lender,requester,toolRequest].map(function(obj) {
+      obj.save()
+    }))
+  })
+  .then(function() {
+    res.redirect('/dashboard')
+  })
+  .catch(function(err){
+    return next(err)
+  })
 };
 
 toolRequests.show = function(req, res) {
