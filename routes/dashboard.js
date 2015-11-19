@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     req.session.loginErr = 'You are not logged in';
     res.redirect('/login')
   }
-  Promise.all([User.findById(req.user.id).populate('tools'), ToolRequest.find({requesterId:req.user.id}).populate('_lender _tool'), ToolRequest.find({lenderId:req.user.id}).populate('_requester _tool')])
+  Promise.all([User.findById(req.user.id).populate('tools'), ToolRequest.find({requesterId:req.user.id, status:'open'}).populate('_lender _tool'), ToolRequest.find({lenderId:req.user.id,status:'open'}).populate('_requester _tool')])
   .then(function(results){
     console.log(results)
     var user = results[0]
