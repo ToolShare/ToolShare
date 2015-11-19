@@ -3,7 +3,7 @@ extends layout
 block content
   .container-fluid
     .row
-      h2 Available #{tools.name}
+      h2 Available #{tools[0].name}
       div.list-group
-        each tool in tools.list
+        each tool in tools
           a(class="list-group-item" href="/toolRequest/#{tool.id}")= tool.userId

@@ -3,13 +3,8 @@ var router = express.Router();
 var User = require('../models/User');
 var Tool = require('../models/Tool');
 
-// router.use(function(req, res, next) {
-//   next();
-// });
-
-router.get('/', function(req, res, next) {
-  var category = req.param.category ? req.param.category :'power';
-  category = 'power';
+router.get('/:category?', function(req, res, next) {
+  var category = req.params.category ? req.params.category :'power';
   //console.log(req.user);
   Tool.find({
     category: category,
@@ -17,23 +12,21 @@ router.get('/', function(req, res, next) {
     //userId: !req.user.id
   },
   function(err, dbtools) {
-    console.log(dbtools);
-    var tools = {
-      category: category,
-      toolNames: []
-    };
-    for (i = 0; i < dbtools.length; i++) {
-      tools.toolNames[i] = {
-        name: dbtools[i].name,
-        count: "1"
-
+    var tools = [];
+    var toolType = {};
+    dbtools.map(function(tool) {
+      if (toolType[tool.name]) {
+        toolType[tool.name] += 1
+      } else {
+        toolType[tool.name] = 1;
       }
+    });
+    for (key in toolType) {
+      tools.push({name:key,count:toolType[key]})
     }
-    //res.send(tools)
     res.render('findtools', {
-      category: tools.category,
-      tools: tools.toolNames
-
+      category: category,
+      tools: tools
     })
   });
 })
