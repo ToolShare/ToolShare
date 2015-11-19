@@ -46,8 +46,7 @@ describe('Single Resource REST API', function() {
     .get('/tools/' + tool1._id)
 			.end(function(err, res) {
         expect(res).to.have.status(200);
-        expect(res.body._id).to.equal(tool1._id);
-        expect(res.body.username).to.equal(tool1.username);
+        expect(res.text).to.contain('<h1>Tool Details</h1>');
         done();
 			});
   });
