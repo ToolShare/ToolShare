@@ -12,7 +12,7 @@ tools.index = function(req, res, next) {
 };
 
 tools.new = function(req, res) {
-  res.send('new tools');
+  res.render('addtool');
 };
 
 tools.create = function(req, res, next) {
