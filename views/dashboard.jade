@@ -22,4 +22,4 @@ block content
         h4 Tools that somebody wants to borrow
         ul.list-group
           each req in lendReqs
-            li.list-group-item #{req.requesterId}
+            li.list-group-item #{req._tool.name} | #{req._requester.firstname} #{req._requester.lastname}
