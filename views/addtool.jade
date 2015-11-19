@@ -7,85 +7,101 @@ block content
     h1 Add a tool
     p.lead Please fill in all fields!
     br
-    form(role='form', action="/new",method="post", style='max-width: 500px;')
+    form(role='form', action="/tools",method="post", style='max-width: 600px;')
       .form-group
-        label Select Tool Category
-        .form-control(#category)
-          select
-            option(value= 'power') Power Tools
-            option(value= 'hand')  Hand Tools
-            option(value= 'garden')  Garden Tools
-            option(value= 'bench')  Bench Tools
-            option(value= 'air')  Air Tools
+        div
+            h2 Select Tool Category
+            input.radio-inline(type='radio', name="category", value='power')
+            label Power
+            input.radio-inline(type='radio', name="category", value='hand' )
+            label Hand
+            input.radio-inline(type='radio', name="category", value='garden' )
+            label Garden
+            input.radio-inline(type='radio', name="category", value='bench' )
+            label Bench
+            input.radio-inline(type='radio', name="category", value='air' )
+            label Air
+            br
+            br
 
-      h1 Choose tool
-      h2 Power Tools
-      input.radio-inline(type='radio', name="tool", value='drill')
-      label drill
-      input.radio-inline(type='radio', name="tool", value='joiner' )
-      label joiner
-      input.radio-inline(type='radio', name="tool", value='sander' )
-      label sander
-      input.radio-inline(type='radio', name="tool", value='grinder' )
-      label grinder
-      input.radio-inline(type='radio', name="power", value='sandblaster' )
-      label sandblaster
+        div
+            h2 Select Tool
+            label Power Tools
+            br
+            input.radio-inline(type='radio', name="name", value='drill')
+            label drill
+            input.radio-inline(type='radio', name="name", value='joiner' )
+            label joiner
+            input.radio-inline(type='radio', name="name", value='sander' )
+            label sander
+            input.radio-inline(type='radio', name="name", value='grinder' )
+            label grinder
+            input.radio-inline(type='radio', name="name", value='sandblaster' )
+            label sandblaster
 
-      h2 Hand Tools
-      input.radio-inline(type='radio', name="hand", value='hammer')
-      label hammer
-      input.radio-inline(type='radio', name="hand", value='wrench' )
-      label wrench
-      input.radio-inline(type='radio', name="hand", value='hand saw' )
-      label hand saw
-      input.radio-inline(type='radio', name="hand", value='screwdriver' )
-      label screwdriver
-      input.radio-inline(type='radio', name="hand", value='vise' )
-      label vise
+        div
+            label Hand Tools
+            br
+            input.radio-inline(type='radio', name="name", value='hammer')
+            label hammer
+            input.radio-inline(type='radio', name="name", value='wrench' )
+            label wrench
+            input.radio-inline(type='radio', name="name", value='hand saw' )
+            label hand saw
+            input.radio-inline(type='radio', name="name", value='screwdriver' )
+            label screwdriver
+            input.radio-inline(type='radio', name="name", value='vise' )
+            label vise
 
-      h2 Garden Tools
-      input.radio-inline(type='radio', name="garden", value='blower')
-      label blower
-      input.radio-inline(type='radio', name="garden", value='bulb planter' )
-      label bulb planter
-      input.radio-inline(type='radio', name="garden", value='edger' )
-      label edger
-      input.radio-inline(type='radio', name="garden", value='lawn aerator' )
-      label lawn aerator
-      input.radio-inline(type='radio', name="garden", value='lawn mower' )
-      label lawn mower
+        div
+            label Garden Tools
+            br
+            input.radio-inline(type='radio', name="name", value='blower')
+            label blower
+            input.radio-inline(type='radio', name="name", value='bulb planter' )
+            label bulb planter
+            input.radio-inline(type='radio', name="name", value='edger' )
+            label edger
+            input.radio-inline(type='radio', name="name", value='lawn aerator' )
+            label lawn aerator
+            input.radio-inline(type='radio', name="name", value='lawn mower' )
+            label lawn mower
 
-      h2 Bench Tools
-      input.radio-inline(type='radio', name="bench", value='grinder')
-      label grinder
-      input.radio-inline(type='radio', name="bench", value='router' )
-      label router
-      input.radio-inline(type='radio', name="bench", value='sander' )
-      label sander
-      input.radio-inline(type='radio', name="bench", value='table saw' )
-      label table saw
-      input.radio-inline(type='radio', name="bench", value='planer' )
-      label planer
+        div
+            label Bench Tools
+            br
+            input.radio-inline(type='radio', name="name", value='grinder')
+            label grinder
+            input.radio-inline(type='radio', name="name", value='router' )
+            label router
+            input.radio-inline(type='radio', name="name", value='sander' )
+            label sander
+            input.radio-inline(type='radio', name="name", value='table saw' )
+            label table saw
+            input.radio-inline(type='radio', name="name", value='planer' )
+            label planer
 
-      h2 Air Tools
-      input.radio-inline(type='radio', name="air", value='nail gun')
-      label nail gun
-      input.radio-inline(type='radio', name="air", value='compressor' )
-      label compressor
-      input.radio-inline(type='radio', name="air", value='inflator' )
-      label inflator
-      input.radio-inline(type='radio', name="air", value='spray gun' )
-      label spray gun
-      input.radio-inline(type='radio', name="air", value='pressure washer' )
-      label pressure washer
-      br
-    .form-group
-      h1 description
-        input.form-control(type='text', name="description", placeholder='description')
+        div
+            label Air Tools
+            br
+            input.radio-inline(type='radio', name="name", value='nail gun')
+            label nail gun
+            input.radio-inline(type='radio', name="name", value='compressor' )
+            label compressor
+            input.radio-inline(type='radio', name="name", value='inflator' )
+            label inflator
+            input.radio-inline(type='radio', name="name", value='spray gun' )
+            label spray gun
+            input.radio-inline(type='radio', name="name", value='pressure washer' )
+            label pressure washer
 
+        div
+          h2 Description
+          label Add description of your tool
+          input.form-control(type='text', name="description", placeholder='description')
 
-    button.btn.btn-default(type='submit') Submit
-    span &nbsp;
+        button.btn.btn-default(type='submit') Submit
+        span &nbsp;
 
     a(href='/dashboard')
       button.btn.btn-primary(type="button") Cancel
