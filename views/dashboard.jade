@@ -10,14 +10,14 @@ block content
         h4 My Tools
         ul.list-group
           each tool in tools
-            li.list-group-item #{tool.name} <small class="pull-right"><a href="/tools/delete/">delete</a> | <a href="">edit</a></small>
+            li.list-group-item #{tool.name} <small class="pull-right"><a href="/tools/#{tool.id}">delete</a> | <a href="">edit</a></small>
           p 
             a.pull-right(href="/tools/new") Add a tool
       .col-md-4
         h4 Tools I want to borrow
         ul.list-group
           each req in borrowReqs
-            li.list-group-item #{req}
+            li.list-group-item #{req._tool.name} | #{req._lender.firstname} #{req._lender.lastname}
       .col-md-4
         h4 Tools that somebody wants to borrow
         ul.list-group

@@ -61,8 +61,14 @@ router.get('/logout', function(req, res) {
 });
 
 router.get('/requesttool/:tool', function(req,res){
-  Tool.find({name:req.params.tool, isAvailable: true}, function(err, tools){
-    res.render('requesttool',{tools:tools})
+  if(!req.isAuthenticated()) {
+    req.session.loginErr = "You need to login to view tools"
+    res.redirect('/login')
+  }
+  Tool.find({name:req.params.tool, isAvailable: true})
+  .populate('_user')
+  .exec(function(err, tools){
+    res.render('requesttool',{tools:tools, user:req.user})
   })
 })
 

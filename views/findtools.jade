@@ -2,17 +2,19 @@ extends layout
 
 block content
   .container
-    h2 Find a tool
+    h2 Find a tool 
+      if user 
+        <small><a href="/dashboard">back to dashboard</a></small>
     .row
       .col-md-12
         ul.nav.nav-pills
-          each cat in ['power','hand','bench', 'air']
-            if (category == cat)
+          each cat in cats
+            if (category == cat.cat)
               li(class="active" role="presentation")
-                a( href="/findtools/#{cat}") #{cat[0].toUpperCase() + cat.slice(1,cat.length)} Tools
+                a( href="/findtools/#{cat.cat}") #{cat.cat[0].toUpperCase() + cat.cat.slice(1,cat.length)} Tools
             else
               li(role="presentation")
-                a( href="/findtools/#{cat}") #{cat[0].toUpperCase() + cat.slice(1,cat.length)} Tools
+                a( href="/findtools/#{cat.cat}") #{cat.cat[0].toUpperCase() + cat.cat.slice(1,cat.length)} Tools
     .row
       .col-md-6
         table.table.table-striped
