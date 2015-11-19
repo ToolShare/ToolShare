@@ -1,5 +1,6 @@
 var tools = module.exports;
 var Tool = require('../models/Tool');
+var User = require('../models/User');
 
 tools.index = function(req, res, next) {
   Tool.find(function(err, tools) {
@@ -16,22 +17,31 @@ tools.new = function(req, res) {
 };
 
 tools.create = function(req, res, next) {
-  var tool = new Tool();
+  if (!req.isAuthenticated()) {
+    req.session.loginErr = "You need to login to view tools"
+    res.redirect('/login')
+  } else {
+    User.findById(req.user.id, function(err, user) {
+      if (err) return next(err);
+      var tool = new Tool({
+        userId: req.user.id,
+        category: req.body.category,
+        name: req.body.name,
+        description: req.body.description,
+        isAvailable: true,
+        _user: user
+      });
 
-  tool.userId = req.body.userId;
-  tool.category = req.body.category;
-  tool.name = req.body.name;
-  tool.description = req.body.description;
-  tool.isAvailable = req.body.isAvailable;
-
-  tool.save(function(err) {
-    if (err) {
-      return next(err);
-    } else {
-      //res.render('../views/index.jade', tool);
-      res.json(tool);
-    }
-  });
+      //add
+      tool.save(function(err) {
+        if (err) {
+          return next(err);
+        } else {
+          res.redirect('/dashboard');
+        }
+      });
+    })
+  }
 };
 
 tools.show = function(req, res, next) {

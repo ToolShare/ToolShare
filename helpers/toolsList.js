@@ -1,34 +1,34 @@
 var toolsList = [
   {cat:'power',list: [
-    'Drills',
+    'Drill',
     'Joiner',
     'Sander',
     'Grinder',
-    'Sandblaster']},
+    'Sandblaster',],},
   {cat:'hand',list: [
     'Hammer',
     'Wrench',
     'Hand Saw',
     'Screwdriver',
-    'Vise']},
+    'Vise',],},
   {cat:'garden',list:[
     'Blower',
     'Bulb Planter',
     'Edger',
     'Lawn Aerator',
-    'Lawn Mower']},
+    'Lawn Mower',],},
   {cat:'bench',list:[
-    'Blower',
-    'Bulb Planter',
-    'Edger',
-    'Lawn Aerator',
-    'Lawn Mower']},
+    'Grinder',
+    'Router',
+    'Sander',
+    'Table Saw',
+    'Planer',],},
   {cat:'air',list:[
     'Nail Gun',
     'Compressor',
     'Inflator',
     'Spray Gun',
-    'Pressure Washer']}
-]
+    'Pressure Washer',],},
+];
 
 module.exports = toolsList;
