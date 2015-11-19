@@ -44,16 +44,20 @@ users.show = function(req, res, next) {
 };
 
 users.edit = function(req, res) {
-  res.send('edit users ' + req.params.users);
+  console.log(req.user)
+  res.render('userprofile', {user:req.user})
 };
 
 users.update = function(req, res, next) {
   User.findById(req.params.user, function(err, user) {
+    console.log(user.address)
     if (err) {
       return next(err);
     } else {
       for (var prop in req.body) {
-        if (prop in user) {
+        if (prop === 'street' || prop === 'city' || prop === 'zip') {
+          user['address'][prop] = req.body[prop]
+        } else {
           user[prop] = req.body[prop];
         }
       }
@@ -63,7 +67,7 @@ users.update = function(req, res, next) {
           return next(err);
         } else {
           //res.render('../views/index.jade', user);
-          res.json(user);
+          res.redirect('/dashboard');
         }
       });
     }
