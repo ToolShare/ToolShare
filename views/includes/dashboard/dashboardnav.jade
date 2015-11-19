@@ -1,0 +1,19 @@
+nav.navbar.navbar-default
+  .container-fluid
+    // Brand and toggle get grouped for better mobile display
+    .navbar-header
+      button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href="#") Welcome #{user.firstname} #{user.lastname}
+    //- Collect the nav links, forms, and other content for toggling
+    .collapse.navbar-collapse( id="bs-example-navbar-collapse-1")
+      ul.nav.navbar-nav
+        li
+          a( href="/users/#{user.id}/edit") Edit Profile 
+        li
+          a(a href="/findtools") Find a Tool
+        li
+          a(a href="/logout") Logout
