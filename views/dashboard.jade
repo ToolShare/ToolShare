@@ -7,19 +7,19 @@ block content
       include ./includes/dashboard/dashboardnav.jade
     .row
       .col-md-4
-        h3 My Tools
-          ul.list-group
-            each tool in tools
-              li.list-group-item #{tool.name}
+        h4 My Tools
+        ul.list-group
+          each tool in tools
+            li.list-group-item #{tool.name} <small class="pull-right"><a href="/tools/delete/">delete</a> | <a href="">edit</a></small>
           p 
             a.pull-right(href="/tools/new") Add a tool
       .col-md-4
-        h3 Tools I want to borrow
-          ul.list-group
-            each req in borrowReqs
-              li.list-group-item #{req.lenderId}
+        h4 Tools I want to borrow
+        ul.list-group
+          each req in borrowReqs
+            li.list-group-item #{req}
       .col-md-4
-        h3 Tools that somebody wants to borrow
-          ul.list-group
-            each req in lendReqs
-              li.list-group-item #{req.requesterId}
+        h4 Tools that somebody wants to borrow
+        ul.list-group
+          each req in lendReqs
+            li.list-group-item #{req.requesterId}
