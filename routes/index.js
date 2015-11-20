@@ -60,7 +60,7 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-router.get('/requesttool/:tool', function(req,res){
+router.get('/requesttool/:tool', function(req,res, next){
   if(!req.isAuthenticated()) {
     req.session.loginErr = "You need to login to view tools"
     res.redirect('/login')
@@ -68,10 +68,10 @@ router.get('/requesttool/:tool', function(req,res){
   Tool.find({name:req.params.tool, isAvailable: true})
   .populate('_user')
   .exec(function(err, tools){
-    var filteredTools = dbtools.filter(function(tool){
+    var filteredTools = tools.filter(function(tool){
       return (tool.userId !== req.user.id)
     })
-    res.render('requesttool',{tools:filteredTools, user:req.user})
+    res.render('requesttool',{tools:tools, user:req.user})
   })
 });
 
