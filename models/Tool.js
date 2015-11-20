@@ -8,7 +8,7 @@ var Tool = new Schema({
   name: String,
   description: String,
   isAvailable: Boolean,
-  _user: {type: Number, ref: 'User'}
+  _user: {type: Number, ref: 'User'},
 });
 
 module.exports = mongoose.model('Tool', Tool);

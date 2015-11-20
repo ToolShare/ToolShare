@@ -1,11 +1,17 @@
-var gulp = require("gulp");
-var jshint = require("gulp-jshint");
-var mocha = require("gulp-mocha");
-var stylish = require("jshint-stylish");
-var jscs = require("gulp-jscs");
+var gulp = require('gulp');
+var jshint = require('gulp-jshint');
+var mocha = require('gulp-mocha');
+var stylish = require('jshint-stylish');
+var jscs = require('gulp-jscs');
 
 var paths = {
-  src:['./app.js', './gulpfile.js', './routes/*.js', 'models/*.js', 'public/javascripts/*.js'],
+  src:[
+    './app.js',
+    './gulpfile.js',
+    './routes/*.js',
+    'models/*.js',
+    'public/javascripts/*.js'
+  ],
   tests: ['./tests/*.js'],
 };
 
@@ -20,7 +26,7 @@ gulp.task('tests', function() {
     .pipe(mocha())
     .on('end', function() {
       process.exit();
-    })
+    });
 });
 
 gulp.task('jscs', function() {
