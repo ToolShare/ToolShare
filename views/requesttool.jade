@@ -4,7 +4,9 @@ block content
   .container-fluid
     .row
       .col-md-8
-        h2 Available #{tools[0].name}s
+        h2 Available #{tools[0].name}s 
+          if user 
+            <small><a href="/dashboard">back to dashboard</a></small> 
         table.table.table-striped
           tr
             th
