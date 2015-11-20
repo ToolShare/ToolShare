@@ -13,7 +13,14 @@ tools.index = function(req, res, next) {
 };
 
 tools.new = function(req, res) {
-  res.render('addtool');
+  var category = req.query.category;
+  var name = req.query.name;
+  var user = req.user ? req.user : false;
+  res.render('newtool', {
+      category: category,
+      name: name,
+      user: user,
+    })
 };
 
 tools.create = function(req, res, next) {

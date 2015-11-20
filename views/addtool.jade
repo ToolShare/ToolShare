@@ -2,109 +2,30 @@ extends layout
 
 block content
   .container
-    script.
-
-    h1 Add a tool
-    p.lead Please fill in all fields!
-    br
-    form(role='form', action="/tools",method="post", style='max-width: 600px;')
-      .form-group
-        div
-            h2 Select Tool Category
-            input.radio-inline(type='radio', name="category", value='power')
-            label Power
-            input.radio-inline(type='radio', name="category", value='hand' )
-            label Hand
-            input.radio-inline(type='radio', name="category", value='garden' )
-            label Garden
-            input.radio-inline(type='radio', name="category", value='bench' )
-            label Bench
-            input.radio-inline(type='radio', name="category", value='air' )
-            label Air
-            br
-            br
-
-        div
-            h2 Select Tool
-            label Power Tools
-            br
-            input.radio-inline(type='radio', name="name", value='drill')
-            label drill
-            input.radio-inline(type='radio', name="name", value='joiner' )
-            label joiner
-            input.radio-inline(type='radio', name="name", value='sander' )
-            label sander
-            input.radio-inline(type='radio', name="name", value='grinder' )
-            label grinder
-            input.radio-inline(type='radio', name="name", value='sandblaster' )
-            label sandblaster
-
-        div
-            label Hand Tools
-            br
-            input.radio-inline(type='radio', name="name", value='hammer')
-            label hammer
-            input.radio-inline(type='radio', name="name", value='wrench' )
-            label wrench
-            input.radio-inline(type='radio', name="name", value='hand saw' )
-            label hand saw
-            input.radio-inline(type='radio', name="name", value='screwdriver' )
-            label screwdriver
-            input.radio-inline(type='radio', name="name", value='vise' )
-            label vise
-
-        div
-            label Garden Tools
-            br
-            input.radio-inline(type='radio', name="name", value='blower')
-            label blower
-            input.radio-inline(type='radio', name="name", value='bulb planter' )
-            label bulb planter
-            input.radio-inline(type='radio', name="name", value='edger' )
-            label edger
-            input.radio-inline(type='radio', name="name", value='lawn aerator' )
-            label lawn aerator
-            input.radio-inline(type='radio', name="name", value='lawn mower' )
-            label lawn mower
-
-        div
-            label Bench Tools
-            br
-            input.radio-inline(type='radio', name="name", value='grinder')
-            label grinder
-            input.radio-inline(type='radio', name="name", value='router' )
-            label router
-            input.radio-inline(type='radio', name="name", value='sander' )
-            label sander
-            input.radio-inline(type='radio', name="name", value='table saw' )
-            label table saw
-            input.radio-inline(type='radio', name="name", value='planer' )
-            label planer
-
-        div
-            label Air Tools
-            br
-            input.radio-inline(type='radio', name="name", value='nail gun')
-            label nail gun
-            input.radio-inline(type='radio', name="name", value='compressor' )
-            label compressor
-            input.radio-inline(type='radio', name="name", value='inflator' )
-            label inflator
-            input.radio-inline(type='radio', name="name", value='spray gun' )
-            label spray gun
-            input.radio-inline(type='radio', name="name", value='pressure washer' )
-            label pressure washer
-
-        div
-          h2 Description
-          label Add description of your tool
-          input.form-control(type='text', name="description", placeholder='description')
-
-        button.btn.btn-default(type='submit') Submit
-        span &nbsp;
-
-    a(href='/dashboard')
-      button.btn.btn-primary(type="button") Cancel
-    br
-    h4=info
-
+    h2 Add a tool 
+     if user
+      <small><a href="/dashboard">back to dashboard</a></small>
+    .row
+      .col-md-6
+        ul.nav.nav-pills
+          each cat in lists
+            if (category == cat.cat)
+              li(class="active" role="presentation")
+                a( href="/tools/add?category=#{cat.cat}") #{cat.cat[0].toUpperCase() + cat.cat.slice(1,cat.length)} Tools
+            else
+              li(role="presentation")
+                a( href="/tools/add?category=#{cat.cat}") #{cat.cat[0].toUpperCase() + cat.cat.slice(1,cat.length)} Tools
+    .row
+      .col-md-6
+        table.table.table-striped
+          tr
+            thead
+              th Tool
+            tbody
+              each list in lists
+                each tool in list.list
+                  if (list.cat == category)
+                    tr
+                      td
+                        <medium class="pull-left">#{tool}</medium>
+                        <small class="pull-right"><a href="/tools/new?category=#{category}&name=#{tool}">add</a></small>
