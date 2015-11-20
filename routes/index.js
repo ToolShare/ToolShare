@@ -68,7 +68,10 @@ router.get('/requesttool/:tool', function(req,res){
   Tool.find({name:req.params.tool, isAvailable: true})
   .populate('_user')
   .exec(function(err, tools){
-    res.render('requesttool',{tools:tools, user:req.user})
+    var filteredTools = dbtools.filter(function(tool){
+      return (tool.userId !== req.user.id)
+    })
+    res.render('requesttool',{tools:filteredTools, user:req.user})
   })
 });
 

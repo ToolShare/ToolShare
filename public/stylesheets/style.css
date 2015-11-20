@@ -6,3 +6,10 @@ body {
 a {
   color: #00B7FF;
 }
+
+.table tbody tr > td.warning {
+  background-color: #fcf8e3 !important;
+}
+.table tbody tr > td.default {
+  background-color: #777 !important;
+}

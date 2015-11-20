@@ -11,4 +11,15 @@ $(document).ready(function(){
         location.reload();
       });
   })
+  $('.request-del').on('click', function(e){
+    e.preventDefault();
+    var $this = $(this);
+    $.ajax({
+      url: $this.attr('href'),
+      method: 'DELETE',
+      })
+      .done(function(data) {
+        location.reload();
+      });
+  })
 })
