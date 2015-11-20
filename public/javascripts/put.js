@@ -8,8 +8,7 @@ $(document).ready(function(){
       data: {status: $this.attr('data-loan-response'), id:$this.attr('data-req-id')}
       })
       .done(function(data) {
-        console.log(data)
-        //location.reload();
+        location.reload();
       });
   })
 })
