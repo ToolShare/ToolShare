@@ -10,8 +10,8 @@ block content
         h4 My Tools
         ul.list-group
           each tool in tools
-            li.list-group-item #{tool.name} <small class="pull-right"><a href="/tools/#{tool.id}">delete</a> | <a href="">edit</a></small>
-          p 
+            li.list-group-item #{tool.name} <small class="pull-right"><a id='method-delete' href="/tools/#{tool.id}">delete</a> | <a href="">edit</a></small>
+          p
             a.pull-right(href="/tools/new") Add a tool
       .col-md-4
         h4 Tools I want to borrow
