@@ -1,25 +1,32 @@
+//- - var output = user.firstname ? user.firstname : 'first name';
+//- - var output = user.lastname ? user.lastname : 'last name'; 
+//- - var output = user.address.street ? user.address.street : "street";
+//- - var output = user.address.city  ? user.address.city : "city";
+//- - var output = user.address.state ? user.address.state : "2 letter state";
+//- - var output = user.address.zip ? user.address.zip : "zip code";
+
 .form-group
-  input.form-control(type='email', name="username" placeholder="#{var output = user ? user.username : 'email'}")
+  input.form-control(type='email', name="username" placeholder="email")
 .form-group
   input.form-control(type='password' name="password" placeholder='password')
 .form-group
-  - var output = user.firstname ? user.firstname : 'first name';
-  input.form-control(type='text' name="firstname" placeholder="#{output}")
+  
+  input.form-control(type='text' name="firstname" placeholder="first name")
 .form-group
-  - var output = user.lastname ? user.lastname : 'last name'; 
-  input.form-control(type='text', name="lastname", placeholder="#{output}")
+  //- 
+  input.form-control(type='text', name="lastname", placeholder="last name")
 .form-group
-  - var output = user.address.street ? user.address.street : "street";
-  input.form-control(type='text', name="street", placeholder="#{output}")
+  //- 
+  input.form-control(type='text', name="street", placeholder="street")
 .form-group
-  - var output = user.address.city  ? user.address.city : "city";
-  input.form-control(type='text', name="city", placeholder="#{output}")
+  //- 
+  input.form-control(type='text', name="city", placeholder="city")
 .form-group
-  - var output = user.address.state ? user.address.state : "2 letter state";
-  input.form-control(type='text', name="state", placeholder='#{output}', maxlength=2)
+  //- 
+  input.form-control(type='text', name="state", placeholder='state', maxlength=2)
 .form-group
-  - var output = user.address.zip ? user.address.zip : "zip code";
-  input.form-control(type='number', name="zip", placeholder="#{output}", maxlength=5)
+  //- 
+  input.form-control(type='number', name="zip", placeholder="zip", maxlength=5)
 
 button.btn.btn-default(type='submit') Submit
 span &nbsp;

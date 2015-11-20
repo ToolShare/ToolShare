@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .container
+    h2 Add a tool 
+      if user 
+        <small><a href="/dashboard">back to dashboard</a></small> 
+    h3 Category: #{category[0].toUpperCase() + category.slice(1,category.length)} Tools 
+    h3 Name: #{name}
+    form(role='form', action="/tools",method="post", style='max-width: 600px;')
+  
+      div
+        p Add description of your tool
+        input(type="hidden" name="category" value="#{category}")
+        input(type="hidden" name="name" value="#{name}")
+        input.form-control(type='text', name="description", placeholder='description')
+        br
+        button.btn.btn-default(type='submit') Submit
+          span &nbsp;
+        br
+      a(href='/dashboard')
+        button.btn.btn-primary(type="button") Cancel
+      br
+    h4=info

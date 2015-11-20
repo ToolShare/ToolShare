@@ -70,6 +70,16 @@ router.get('/requesttool/:tool', function(req,res){
   .exec(function(err, tools){
     res.render('requesttool',{tools:tools, user:req.user})
   })
-})
+});
+
+router.get('/tools/add', function(req, res, next) {
+  var category = req.query.category ? req.query.category :'power';
+  var user = req.user ? req.user : false;
+  res.render('addtool', {
+      category: category,
+      lists: require('../helpers/toolsList'),
+      user: user,
+    })
+});
 
 module.exports = router;
