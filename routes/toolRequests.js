@@ -15,7 +15,6 @@ toolRequests.create = function(req, res, next) {
 
   Promise.all([User.findById(req.body.lenderId), User.findById(req.body.borrowerId), Tool.findById(req.body.toolId)])
   .then( function(results) {
-    console.log(results)
     var lender = results[0]
     var requester = results[1]
     var tool = results[2]
@@ -55,11 +54,18 @@ toolRequests.update = function(req, res, next) {
   ToolRequest.findById(req.body.id, function(err, toolReq) {
     ToolRequest.update(toolReq,{status:req.body.status}, function(err, tr) {
       if (err) return next(err)
-      res.send('updated')
+        res.send('updated')
     })
   })
 };
 
 toolRequests.destroy = function(req, res) {
-  res.send('destroy toolRequests ' + req.params.toolRequests);
+  ToolRequest.remove({_id: req.params.toolRequest}, function(err, tool) {
+    if (err) {
+      return next(err);
+    } else {
+      var message = 'ID: ' + req.params.tool + ' deleted from DB';
+      res.json({message: message});
+    }
+  });
 };

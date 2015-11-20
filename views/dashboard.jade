@@ -9,21 +9,46 @@ block content
       .col-md-4
         h4 My Tools
         ul.list-group
-          each tool in tools
-            li.list-group-item #{tool.name} <small class="pull-right"><a href="/tools/#{tool.id}">delete</a> | <a href="">edit</a></small>
+          each category, index in tools
+            h4 #{index[0].toUpperCase() + index.slice(1,index.length) } Tools
+            table.table.table-striped 
+              each tool in category
+                - var status = tool.status === 'borrowed' ? 'warning' : ''
+                - var msg = tool.status === 'borrowed' ? 'borrowed ' : ''
+                - var avail = tool.isAvailable ? '' : ' default'
+                tr
+                  td(class="#{status}#{avail}") #{msg}#{tool.name}
+                  td(class="#{status}#{avail}") <span class="pull-right">#{tool.description} </span>
+                    br
+                    small.pull-right
+                      if tool.status === 'borrowed'
+                        a(href="/toolrequests/#{tool.reqId}" class="request-del") return  
+                      else
+                        a(href="/tools/#{tool.id}" class="request-del") delete  
+                      
         p
           a.pull-right(href="/tools/add") Add a tool
-      .col-md-4
-        h4 Tools I want to borrow
-        ul.list-group
-          each req in borrowReqs
-            li.list-group-item #{req._tool.name} | #{req._lender.firstname} #{req._lender.lastname}
-      .col-md-4
-        h4 Tools that somebody wants to borrow
-        ul.list-group
-          each req in lendReqs
-            li.list-group-item #{req._tool.name} | #{req._requester.firstname} #{req._requester.lastname}
-              small.pull-right
-                a(href="/toolrequests/#{req.id}" class="request-put" data-loan-response="accept" data-req-id="#{req.id}") accept 
-                span |  
-                a(href="/toolrequests/#{req.id}" class="request-put" data-loan-response="deny" data-req-id="#{req.id}") deny
+      - var hasBorrowReqs = (borrowReqs.length > 0)
+      if hasBorrowReqs
+        .col-md-4
+          h4 Tools I want to borrow
+          ul.list-group
+            each req in borrowReqs
+              - var dmsg = req.status === 'deny' ? 'denied -' : '';
+              - var danger = req.status === 'deny' ? ' list-group-item-danger' : '';
+              - var smsg = req.status === 'accept' ? 'accepted -' : '';
+              - var success = req.status === 'accept' ? ' list-group-item-success' : '';
+              li(class="list-group-item#{success}#{danger}") #{req._tool.name} | #{req._lender.firstname} #{req._lender.lastname}
+                small.pull-right
+                  a(href="/toolrequests/#{req.id}" class="request-del" data-req-id="#{req.id}") #{dmsg}#{smsg} delete 
+      - var hasLendReqs = (lendReqs.length > 0)
+      if hasLendReqs
+        .col-md-4
+          h4 Tools that somebody wants to borrow
+          ul.list-group
+            each req in lendReqs
+              li.list-group-item #{req._tool.name} | #{req._requester.firstname} #{req._requester.lastname}
+                small.pull-right
+                  a(href="/toolrequests/#{req.id}" class="request-put" data-loan-response="accept" data-req-id="#{req.id}") accept 
+                  span |  
+                  a(href="/toolrequests/#{req.id}" class="request-put" data-loan-response="deny" data-req-id="#{req.id}") deny

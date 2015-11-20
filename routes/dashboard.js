@@ -9,17 +9,35 @@ router.get('/', function(req, res, next) {
     req.session.loginErr = 'You are not logged in';
     res.redirect('/login')
   }
-  Promise.all([User.findById(req.user.id).populate('tools'), ToolRequest.find({requesterId:req.user.id, status:'open' }).populate('_lender _tool'), ToolRequest.find({lenderId:req.user.id,status:'open'}).populate('_requester _tool'),
-  ToolRequest.find({requesterId:req.user.id, status:'accept' }).populate('_lender _tool'),
-  ToolRequest.find({lenderId:req.user.id, status:'deny' }).populate('_lender _tool'),])
+  Promise.all([
+    User.findById(req.user.id).populate('tools'),
+    ToolRequest.find({requesterId:req.user.id}).populate('_lender _tool'), // borrow reqs
+    ToolRequest.find({lenderId:req.user.id,status:'open'}).populate('_requester _tool'), // lend reqs
+  ])
   .then(function(results){
     console.log(results[1].length)
     var user = results[0]
     var borrowReqs = results[1]
     var loanReqs = results[2]
-    var acceptedReqs = results[3]
-    var deniedReqs = results[4]
-    res.render('dashboard', {user:user, tools:user.tools, borrowReqs:borrowReqs, acceptedReqs:acceptedReqs,lendReqs:loanReqs})
+
+    var tools = {}
+    user.tools.map(function(tool) {
+      if (!tools[tool.category]) tools[tool.category] = []
+      tools[tool.category].push(tool);
+    });
+    borrowReqs.map(function(bReq) {
+      if (bReq.status === 'accept') {
+        var tool = bReq._tool
+        tool.status = 'borrowed';
+        tool.reqId = bReq.id;
+        if (!tools[tool.category]) tools[tool.category] = []
+        tools[tool.category].push(tool);
+      }
+    })
+    var filteredReqs = borrowReqs.filter(function(bReq){
+      return (bReq.status !== 'accept')
+    })
+    res.render('dashboard', {user:user, tools:tools, borrowReqs:filteredReqs, lendReqs:loanReqs})
   })
   .catch(function(err) {
     return next(err)
