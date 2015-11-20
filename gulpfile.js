@@ -5,7 +5,7 @@ var stylish = require("jshint-stylish");
 var jscs = require("gulp-jscs");
 
 var paths = {
-  src:['./app.js', './routes/*.js', 'models/*.js'],
+  src:['./app.js', './gulpfile.js', './routes/*.js', 'models/*.js', 'public/javascripts/*.js'],
   tests: ['./tests/*.js'],
 };
 
