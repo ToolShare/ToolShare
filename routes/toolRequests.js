@@ -46,12 +46,18 @@ toolRequests.show = function(req, res) {
   res.send('show toolRequests ' + req.params.toolRequests);
 };
 
-toolRequests.edit = function(req, res) {
-  res.send('edit toolRequests ' + req.params.toolRequests);
+toolRequests.edit = function(req, res, next) {
+  res.send('show toolRequests ' + req.params.toolRequests);
+  //var toolReq = ToolRequest.findById(req.body.status)
 };
 
-toolRequests.update = function(req, res) {
-  res.send('update toolRequests ' + req.params.toolRequests);
+toolRequests.update = function(req, res, next) {
+  ToolRequest.findById(req.body.id, function(err, toolReq) {
+    ToolRequest.update(toolReq,{status:req.body.status}, function(err, tr) {
+      if (err) return next(err)
+      res.send('updated')
+    })
+  })
 };
 
 toolRequests.destroy = function(req, res) {
