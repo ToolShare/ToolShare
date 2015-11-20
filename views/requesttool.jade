@@ -18,9 +18,10 @@ block content
               td= tools.indexOf(tool) + 1
               td #{tool.description}
               td #{tool._user.firstname} #{tool._user.lastname}
-              td 
-                form(action="/toolrequests" method="post")
-                  input(type="hidden" name="lenderId" value="#{tool._user.id}")
-                  input(type="hidden" name="borrowerId" value="#{user.id}")
-                  input(type="hidden" name="toolId" value="#{tool.id}")
-                  button.btn.btn-success.pull-right Borrow tool
+              if user
+                td 
+                  form(action="/toolrequests" method="post")
+                    input(type="hidden" name="lenderId" value="#{tool._user.id}")
+                    input(type="hidden" name="borrowerId" value="#{user.id}")
+                    input(type="hidden" name="toolId" value="#{tool.id}")
+                    button.btn.btn-success.pull-right Borrow tool
