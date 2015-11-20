@@ -32,14 +32,16 @@ tools.create = function(req, res, next) {
         _user: user
       });
 
-      //add
-      tool.save(function(err) {
-        if (err) {
-          return next(err);
-        } else {
-          res.redirect('/dashboard');
-        }
-      });
+      user.tools.push(tool)
+      Promise.all([user, tool].map(function(obj){
+        obj.save()
+      }))
+      .then(function(){
+        res.redirect('/dashboard')
+      })
+      .catch(function(err){
+        return next(err)
+      })
     })
   }
 };

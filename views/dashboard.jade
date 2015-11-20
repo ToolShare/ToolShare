@@ -23,3 +23,7 @@ block content
         ul.list-group
           each req in lendReqs
             li.list-group-item #{req._tool.name} | #{req._requester.firstname} #{req._requester.lastname}
+              small.pull-right
+                a(href="/toolrequests/#{req.id}" class="request-put" data-loan-response="accept" data-req-id="#{req.id}") accept 
+                span |  
+                a(href="/toolrequests/#{req.id}" class="request-put" data-loan-response="deny" data-req-id="#{req.id}") deny
