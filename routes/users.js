@@ -44,19 +44,17 @@ users.show = function(req, res, next) {
 };
 
 users.edit = function(req, res) {
-  console.log(req.user)
-  res.render('userprofile', {user:req.user})
+  res.render('userprofile', {user:req.user});
 };
 
 users.update = function(req, res, next) {
   User.findById(req.params.user, function(err, user) {
-    console.log(user.address)
     if (err) {
       return next(err);
     } else {
       for (var prop in req.body) {
         if (prop === 'street' || prop === 'city' || prop === 'zip') {
-          user['address'][prop] = req.body[prop]
+          user['address'][prop] = req.body[prop];
         } else {
           user[prop] = req.body[prop];
         }

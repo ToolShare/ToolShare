@@ -20,13 +20,13 @@ tools.new = function(req, res) {
       category: category,
       name: name,
       user: user,
-    })
+    });
 };
 
 tools.create = function(req, res, next) {
   if (!req.isAuthenticated()) {
-    req.session.loginErr = "You need to login to view tools"
-    res.redirect('/login')
+    req.session.loginErr = 'You need to login to view tools';
+    res.redirect('/login');
   } else {
     User.findById(req.user.id, function(err, user) {
       if (err) return next(err);
@@ -36,20 +36,20 @@ tools.create = function(req, res, next) {
         name: req.body.name,
         description: req.body.description,
         isAvailable: true,
-        _user: user
+        _user: user,
       });
 
-      user.tools.push(tool)
-      Promise.all([user, tool].map(function(obj){
-        obj.save()
+      user.tools.push(tool);
+      Promise.all([user, tool].map(function(obj) {
+        obj.save();
       }))
-      .then(function(){
-        res.redirect('/dashboard')
+      .then(function() {
+        res.redirect('/dashboard');
       })
-      .catch(function(err){
-        return next(err)
-      })
-    })
+      .catch(function(err) {
+        return next(err);
+      });
+    });
   }
 };
 

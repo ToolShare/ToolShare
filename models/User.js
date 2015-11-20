@@ -15,7 +15,7 @@ var User = new Schema({
   },
   tools: [{ type: Schema.Types.ObjectId, ref: 'Tool' }],
   borrowReqs: [{ type: Schema.Types.ObjectId, ref: 'ToolRequest' }],
-  loanReqs: [{ type: Schema.Types.ObjectId, ref: 'ToolRequest' }]
+  loanReqs: [{ type: Schema.Types.ObjectId, ref: 'ToolRequest' }],
 });
 
 User.plugin(passportLocalMongoose);
