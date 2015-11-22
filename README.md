@@ -28,7 +28,12 @@ https://github.com/felixge/node-style-guide
 
 ##Application structure
 /models - Mongo Schemas
+
 /helpers - test categories and tool names
+
 /public/javascripts - front end js
+
 /routes - express routing for key functionality. express-resources a key npm package
+
 /views - view engine templates created using Jade
+
