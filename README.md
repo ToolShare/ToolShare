@@ -3,7 +3,7 @@
 Web app for listing and sharing tools with nearby users.
 
 Click here for live site deployment
-https://tool-share.herokuapp.com/
+http://tool-share.herokuapp.com/
 
 ## Clone/Deploy instructions
 
